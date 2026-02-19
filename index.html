@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammad Awais - Full-Stack AI Developer</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --deep-space: #0A0F1F;
+            --electric-purple: #8B5CF6;
+            --cyan: #22D3EE;
+            --off-white: #F1F5F9;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--deep-space);
+            color: var(--off-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Custom Cursor Glow Effect */
+        .cursor-glow {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle at center, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--cyan), var(--electric-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--off-white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--electric-purple);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--off-white);
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--electric-purple);
+            transform: scale(1.1);
+        }
+
+        /* Hero Section with Profile Image */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 4rem 0;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(34, 211, 238, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-greeting {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--cyan);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--off-white), var(--electric-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .dynamic-text {
+            height: 60px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .dynamic-text-item {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--cyan);
+            display: block;
+            animation: rotate 6s infinite;
+        }
+
+        @keyframes rotate {
+            0%, 33% { transform: translateY(0); }
+            34%, 66% { transform: translateY(-60px); }
+            67%, 100% { transform: translateY(-120px); }
+        }
+
+        .hero-bio {
+            font-size: 1.2rem;
+            color: #94A3B8;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--electric-purple);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            border-color: var(--electric-purple);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--glass-border);
+            color: var(--off-white);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--cyan);
+            transform: translateY(-2px);
+        }
+
+        /* Profile Image Container */
+        .profile-container {
+            position: relative;
+        }
+
+        .profile-image-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .profile-glow {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            background: linear-gradient(135deg, var(--cyan), var(--electric-purple));
+            border-radius: 50%;
+            filter: blur(30px);
+            opacity: 0.3;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.05); }
+        }
+
+        .profile-image {
+            position: relative;
+            width: 100%;
+            padding-bottom: 100%;
+            background: linear-gradient(135deg, var(--deep-space), #1a1f35);
+            border-radius: 50%;
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .profile-image::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, var(--cyan), var(--electric-purple));
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        /* Abstract Avatar Design */
+        .avatar-art {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .split-avatar {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .split-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--cyan), #0891b2);
+            clip-path: polygon(0 0, 100% 0, 0 100%, 0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .split-right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--electric-purple), #6d28d9);
+            clip-path: polygon(100% 0, 100% 100%, 0 100%, 100% 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar-icon {
+            font-size: 3rem;
+            color: white;
+            opacity: 0.9;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+        }
+
+        .avatar-code {
+            position: absolute;
+            bottom: 20%;
+            right: 20%;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 3;
+        }
+
+        .avatar-neural {
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(34, 211, 238, 0.5);
+            z-index: 3;
+        }
+
+        .avatar-neural::before,
+        .avatar-neural::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: ripple 3s infinite;
+        }
+
+        .avatar-neural::before {
+            animation-delay: 0.5s;
+        }
+
+        .avatar-neural::after {
+            animation-delay: 1s;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+
+        /* Stats Badges */
+        .profile-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--cyan);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #94A3B8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Skills Matrix */
+        .skills {
+            padding: 6rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #94A3B8;
+            margin-bottom: 4rem;
+            font-size: 1.1rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(139, 92, 246, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--electric-purple);
+        }
+
+        .skill-card:hover::before {
+            opacity: 1;
+        }
+
+        .skill-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--cyan), var(--electric-purple));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .skill-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            padding: 0.3rem 0.8rem;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            color: var(--electric-purple);
+        }
+
+        .skill-proof {
+            font-size: 0.9rem;
+            color: var(--cyan);
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--glass-border);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s;
+        }
+
+        .skill-card:hover .skill-proof {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Featured Projects */
+        .projects {
+            padding: 6rem 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--cyan);
+        }
+
+        .project-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--electric-purple), var(--cyan));
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .project-category {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-description {
+            color: #94A3B8;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-tech span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            background: rgba(34, 211, 238, 0.1);
+            border-radius: 4px;
+            color: var(--cyan);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            color: var(--off-white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .project-link:hover {
+            color: var(--electric-purple);
+        }
+
+        /* Process Section */
+        .process {
+            padding: 6rem 0;
+        }
+
+        .process-timeline {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+            position: relative;
+        }
+
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--cyan), var(--electric-purple));
+            z-index: 0;
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .process-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--deep-space);
+            border: 2px solid var(--electric-purple);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            color: var(--cyan);
+        }
+
+        .process-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .process-desc {
+            color: #94A3B8;
+            font-size: 0.9rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), transparent);
+        }
+
+        .contact-tagline {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--cyan), var(--electric-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact-email {
+            font-size: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--off-white);
+            text-decoration: none;
+            border-bottom: 2px solid var(--electric-purple);
+            padding-bottom: 0.3rem;
+            transition: all 0.3s;
+        }
+
+        .contact-email:hover {
+            color: var(--cyan);
+            border-bottom-color: var(--cyan);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--off-white);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            border-color: var(--electric-purple);
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 0;
+            text-align: center;
+            color: #94A3B8;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .hero-content {
+                margin: 0 auto;
+            }
+
+            .hero-cta {
+                justify-content: center;
+            }
+
+            .profile-container {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .dynamic-text-item {
+                font-size: 1.5rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-timeline {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .process-timeline::before {
+                display: none;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Light Mode */
+        body.light-mode {
+            --deep-space: #F1F5F9;
+            --off-white: #0A0F1F;
+            --glass-bg: rgba(0, 0, 0, 0.02);
+            --glass-border: rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-mode .skill-proof {
+            color: var(--electric-purple);
+        }
+
+        body.light-mode .profile-image {
+            background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Cursor Glow Effect -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <nav>
+            <div class="logo">{Muhammad.Awais}</div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#process">Process</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="theme-toggle" onclick="toggleTheme()">
+                <i class="fas fa-moon"></i>
+            </div>
+        </nav>
+
+        <!-- Hero Section with Profile Image -->
+        <section id="home" class="hero">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="hero-greeting">&lt; Hello World /&gt;</div>
+                    <h1 class="hero-title">Muhammad Awais</h1>
+                    <div class="dynamic-text">
+                        <span class="dynamic-text-item">Full-Stack Developer</span>
+                        <span class="dynamic-text-item">AI Engineer</span>
+                        <span class="dynamic-text-item">LangChain Specialist</span>
+                    </div>
+                    <p class="hero-bio">
+                        I don't just build websites. I build applications that think, learn, 
+                        and integrate seamlessly with the world's most advanced AI models.
+                    </p>
+                    <div class="hero-cta">
+                        <a href="#projects" class="btn btn-primary">View My Work</a>
+                        <a href="#contact" class="btn btn-outline">Let's Talk</a>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">5+</div>
+                            <div class="stat-label">AI Projects</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">20+</div>
+                            <div class="stat-label">Web Apps</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">3</div>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-container">
+                    <div class="profile-image-wrapper">
+                        <div class="profile-glow"></div>
+                        <div class="profile-image">
+                            <div class="avatar-art">
+                                <!-- Split Avatar Design (Left: Web Dev, Right: AI) -->
+                                <div class="split-avatar">
+                                    <div class="split-left">
+                                        <i class="fas fa-code avatar-icon"></i>
+                                    </div>
+                                    <div class="split-right">
+                                        <i class="fas fa-brain avatar-icon"></i>
+                                    </div>
+                                </div>
+                                <!-- Decorative Elements -->
+                                <div class="avatar-neural"></div>
+                                <div class="avatar-code">{MA}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Matrix -->
+        <section id="skills" class="skills">
+            <h2 class="section-title">The Full-Stack AI Matrix</h2>
+            <p class="section-subtitle">Bridging the gap between web development and artificial intelligence</p>
+            
+            <div class="skills-grid">
+                <!-- Card 1: Web Frontend -->
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-icon"><i class="fas fa-code"></i></div>
+                        <h3 class="skill-title">Web Frontend</h3>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Next.js</span>
+                        <span class="skill-tag">Three.js</span>
+                        <span class="skill-tag">Tailwind</span>
+                    </div>
+                    <div class="skill-proof">
+                        <i class="fas fa-check-circle"></i> Built 20+ responsive apps with 99+ Lighthouse scores
+                    </div>
+                </div>
+
+                <!-- Card 2: Web Backend -->
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-icon"><i class="fas fa-server"></i></div>
+                        <h3 class="skill-title">Web Backend</h3>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">FastAPI</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                    </div>
+                    <div class="skill-proof">
+                        <i class="fas fa-check-circle"></i> Scaled APIs to handle 10k+ concurrent users
+                    </div>
+                </div>
+
+                <!-- Card 3: AI Orchestration -->
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-icon"><i class="fas fa-brain"></i></div>
+                        <h3 class="skill-title">AI Orchestration</h3>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">LangChain</span>
+                        <span class="skill-tag">LlamaIndex</span>
+                        <span class="skill-tag">RAG</span>
+                        <span class="skill-tag">Prompt Engineering</span>
+                    </div>
+                    <div class="skill-proof">
+                        <i class="fas fa-check-circle"></i> Reduced API latency by 40% with optimized chains
+                    </div>
+                </div>
+
+                <!-- Card 4: AI Infrastructure -->
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-icon"><i class="fas fa-cloud"></i></div>
+                        <h3 class="skill-title">AI Infrastructure</h3>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">OpenAI</span>
+                        <span class="skill-tag">Pinecone</span>
+                        <span class="skill-tag">Hugging Face</span>
+                        <span class="skill-tag">Fine-tuning</span>
+                    </div>
+                    <div class="skill-proof">
+                        <i class="fas fa-check-circle"></i> Deployed 5 production RAG systems with 95% accuracy
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Projects -->
+        <section id="projects" class="projects">
+            <div class="container">
+                <h2 class="section-title">AI-Powered Projects</h2>
+                <p class="section-subtitle">Real applications solving real problems with artificial intelligence</p>
+                
+                <div class="projects-grid">
+                    <!-- Project 1: DocuMind AI -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <i class="fas fa-file-pdf"></i>
+                            <span class="project-category">RAG System</span>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">DocuMind AI</h3>
+                            <p class="project-description">
+                                A ChatGPT-like interface that lets users chat with their own PDFs. 
+                                Uses LangChain for document splitting and Pinecone for vector search.
+                            </p>
+                            <div class="project-tech">
+                                <span>Next.js</span>
+                                <span>LangChain</span>
+                                <span>Pinecone</span>
+                                <span>OpenAI</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
+                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Live</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: AgentForge -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <i class="fas fa-robot"></i>
+                            <span class="project-category">AI Agent</span>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">AgentForge</h3>
+                            <p class="project-description">
+                                An autonomous research agent that browses the web, synthesizes 
+                                information, and writes detailed reports.
+                            </p>
+                            <div class="project-tech">
+                                <span>Python</span>
+                                <span>FastAPI</span>
+                                <span>LangGraph</span>
+                                <span>React</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
+                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Live</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3: StyleSync -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <i class="fas fa-paint-brush"></i>
+                            <span class="project-category">AI Web App</span>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">StyleSync</h3>
+                            <p class="project-description">
+                                A design-to-code tool that uses computer vision to identify Tailwind 
+                                classes from uploaded images.
+                            </p>
+                            <div class="project-tech">
+                                <span>Next.js</span>
+                                <span>GPT-4 Vision</span>
+                                <span>Tailwind</span>
+                                <span>Shadcn/ui</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
+                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Live</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section -->
+        <section id="process" class="process">
+            <h2 class="section-title">The AI Development Process</h2>
+            <p class="section-subtitle">From concept to production, with intelligence at every step</p>
+            
+            <div class="process-timeline">
+                <div class="process-step">
+                    <div class="process-icon"><i class="fas fa-lightbulb"></i></div>
+                    <h3 class="process-title">Ideate</h3>
+                    <p class="process-desc">Whiteboarding architecture, LLM selection, and data flow design</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-icon"><i class="fas fa-code"></i></div>
+                    <h3 class="process-title">Build</h3>
+                    <p class="process-desc">Rapid development with Next.js + LangChain integration</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3 class="process-title">Optimize</h3>
+                    <p class="process-desc">Fine-tuning models and optimizing prompts for accuracy</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-icon"><i class="fas fa-rocket"></i></div>
+                    <h3 class="process-title">Deploy</h3>
+                    <p class="process-desc">Production deployment with monitoring and scaling</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <h2 class="section-title">Let's Build Something That Thinks</h2>
+            <p class="contact-tagline">Ready to bring AI to your next project?</p>
+            <a href="mailto:muhammad.awais@example.com" class="contact-email">awaisakhunzadaakhunzada123456@gmail.com</a>
+            
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2024 Muhammad Awais — Full-Stack AI Developer</p>
+            <p style="font-size: 0.8rem; margin-top: 0.5rem;">Built with <i class="fas fa-heart" style="color: var(--electric-purple);"></i> and LangChain</p>
+        </footer>
+    </div>
+
+    <script>
+   
